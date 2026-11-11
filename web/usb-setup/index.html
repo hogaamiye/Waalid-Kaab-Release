@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="referrer" content="no-referrer" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'none'"
+    />
+    <title>Waalid Kaab · Online USB setup</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header class="top">
+      <a class="brand" href="./"><span class="mark">W</span>Waalid Kaab</a
+      ><span class="online"><span></span>Online USB setup</span>
+    </header>
+    <main>
+      <section class="intro">
+        <p class="eyebrow">COMPANION DEVICE SETUP</p>
+        <h1>One cable.<br />A connected family.</h1>
+        <p class="lead">
+          Connect your child's Android phone and set up Companion here in your
+          browser.
+        </p>
+        <div class="requirements">
+          <span>Chrome or Edge</span><span>Android 8+</span
+          ><span>USB data cable</span>
+        </div>
+      </section>
+      <section class="workspace" aria-label="USB setup">
+        <div class="card connection">
+          <div class="card-heading">
+            <span class="number">1</span>
+            <div>
+              <h2>Connect your phone</h2>
+              <p>
+                Unlock the phone and enable USB debugging in Developer options.
+              </p>
+            </div>
+          </div>
+          <div class="phone-preview">
+            <svg viewBox="0 0 72 96" fill="none" aria-hidden="true">
+              <rect
+                x="15"
+                y="4"
+                width="42"
+                height="72"
+                rx="9"
+                stroke="currentColor"
+                stroke-width="3"
+              />
+              <path
+                d="M29 11h14M32 69h8M36 77v14M30 85h12"
+                stroke="currentColor"
+                stroke-width="3"
+                stroke-linecap="round"
+              />
+            </svg>
+            <div>
+              <strong id="phone-name">Ready when you are</strong>
+              <p id="phone-detail">
+                Choose your phone, then tap Allow on its USB debugging prompt.
+              </p>
+            </div>
+          </div>
+          <div class="actions">
+            <button id="connect" class="primary" disabled>
+              Loading USB support…</button
+            ><button id="disconnect" class="quiet" hidden>Disconnect</button>
+          </div>
+          <p id="browser-note" class="note">Checking browser support…</p>
+        </div>
+        <div class="card setup">
+          <div class="card-heading">
+            <span class="number">2</span>
+            <div>
+              <h2>Install Companion</h2>
+              <p>
+                We check device readiness and verify the public release before
+                installing.
+              </p>
+            </div>
+          </div>
+          <dl class="checks">
+            <div>
+              <dt>Phone connection</dt>
+              <dd id="connection-check">Waiting</dd>
+            </div>
+            <div>
+              <dt>Managed device readiness</dt>
+              <dd id="readiness-check">Waiting</dd>
+            </div>
+            <div>
+              <dt>Latest signed release</dt>
+              <dd id="release-check">Loading</dd>
+            </div>
+          </dl>
+          <label class="consent"
+            ><input id="consent" type="checkbox" /><span
+              >I am the parent or authorized guardian and want to set up or
+              update Companion on this phone.</span
+            ></label
+          >
+          <button id="install" class="primary wide" disabled>
+            Install &amp; set up
+          </button>
+          <p class="note">
+            Managed protection can disable USB debugging when setup finishes.
+            Open Companion on the phone to finish pairing.
+          </p>
+        </div>
+        <div class="card status-card">
+          <div class="status-heading">
+            <h2>Setup activity</h2>
+            <span id="state" class="badge">Ready</span>
+          </div>
+          <p id="status" role="status" aria-live="polite">
+            Connect a phone to begin.
+          </p>
+          <progress id="progress" max="100" value="0" hidden></progress>
+          <ol id="activity" aria-label="Setup activity"></ol>
+        </div>
+      </section>
+      <section class="help card">
+        <h2>Before you connect</h2>
+        <div class="help-grid">
+          <p>
+            <strong>Approve on the phone</strong>Your phone must allow this
+            browser's USB debugging connection. Keep it unlocked during setup.
+          </p>
+          <p>
+            <strong>Preparing a new managed phone</strong>Android can require a
+            device with no Google accounts or extra profiles for first-time
+            enrollment. The readiness check will explain.
+          </p>
+          <p>
+            <strong>If the phone is not listed</strong>Try a data-capable cable
+            and another USB port. Close other ADB tools. Windows may need the
+            phone manufacturer's USB driver.
+          </p>
+        </div>
+      </section>
+    </main>
+    <footer>
+      USB communication and debugging keys stay in this browser. APKs come from
+      the public Waalid Kaab release repository. Browser ADB powered by Tango.
+    </footer>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

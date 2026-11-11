@@ -1,0 +1,57 @@
+name: Publish online USB setup
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - web/usb-setup/**
+      - scripts/prepare-usb-web-release.py
+      - .github/workflows/usb-setup-pages.yml
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: usb-setup-pages
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: web/usb-setup/package-lock.json
+      - name: Install browser ADB dependencies
+        run: npm ci --no-audit --no-fund
+        working-directory: web/usb-setup
+      - name: Test device and download checks
+        run: npm test
+        working-directory: web/usb-setup
+      - name: Build the setup page
+        run: npm run build
+        working-directory: web/usb-setup
+      - name: Prepare verified public APK
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/prepare-usb-web-release.py web/usb-setup/dist
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: web/usb-setup/dist
+      - name: Publish
+        id: deployment
+        uses: actions/deploy-pages@v4
