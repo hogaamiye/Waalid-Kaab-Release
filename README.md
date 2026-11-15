@@ -1,16 +1,18 @@
 # Waalid Kaab Android releases
 
-Latest release: [Waalid Kaab 2.10.0](https://github.com/hogaamiye/Waalid-Kaab-Release/releases/tag/v2.10.0).
+Latest release: [Waalid Kaab 2.12.0](https://github.com/hogaamiye/Waalid-Kaab-Release/releases/tag/v2.12.0).
 
-- [Parent 2.10.0 - build 48](https://github.com/hogaamiye/Waalid-Kaab-Release/releases/download/v2.10.0/waalid-kaab-parent-build-48.apk)
-- [Companion 2.10.0 - build 52](https://github.com/hogaamiye/Waalid-Kaab-Release/releases/download/v2.10.0/waalid-kaab-companion-build-52.apk)
+- [Parent 2.12.0 - build 51](https://github.com/hogaamiye/Waalid-Kaab-Release/releases/download/v2.12.0/waalid-kaab-parent-build-51.apk)
+- [Companion 2.12.0 - build 53](https://github.com/hogaamiye/Waalid-Kaab-Release/releases/download/v2.12.0/waalid-kaab-companion-build-53.apk)
 - [Online USB setup](https://hogaamiye.github.io/Waalid-Kaab-Release/)
 
-Parent 2.10.0 (build 48) fixes the automatic-update checker missing from Parent 2.8.1 and 2.9.0. Install the new Parent APK over the existing app once; do not uninstall. Future checks run automatically and App & server updates includes Check for updates now. Android may still require installation permission and confirmation. Companion 2.10.0 (build 52) adds Graduation academy access from the protected Focus Space and app-lock screens while preserving the lock policy.
+Version 2.12.0 adds guided first-child setup, a QR for downloading Companion before enrollment, and private single-use connection links. Parents can optionally preapprove a link; children must accept the visible supervision explanation before connecting. Links expire in 10 minutes. Android installation and permission approvals are still required. Standard wireless setup does not grant Device Owner status.
 
-The matching private backend update adds a searchable active Companion student dropdown for administrator assignment. Search by student or family name; archived profiles are excluded and existing assignments are marked. Deploy the backend package and run php artisan optimize:clear, then refresh the admin page.
+Parent phone sign-in uses Firebase SMS OTP with automatic verification where supported and manual entry as a fallback. Email is optional. My profile supports name, email, avatar colors and a verified-phone checkmark. Existing email/password sign-in remains available. Firebase Phone Authentication, billing, SMS regions and the Android signing fingerprints must be configured for SMS delivery.
 
-Version 2.10.0 adds Brain practice, optional parent-enabled physical activity AI summaries, supported-device step counting and parent-approved rewards. Temporary app clips and frames are deleted after processing or expiry; provider retention rules apply. Graduation academy adds saved answers, revision tools and administrator-controlled attempt limits. Deploy the matching private backend package and run migrations, clear configuration caches and restart the study-ai worker. Keep the scheduler running. No new environment entries are required.
+Deploy the matching private backend update and public assets, including .well-known/assetlinks.json. Run php artisan migrate --force and php artisan optimize:clear. APP_URL must match the HTTPS site. Phone sign-in needs FIREBASE_PHONE_AUTH_ENABLED=true and the matching FIREBASE_PROJECT_ID. Backend source and credentials are not included here.
+
+Install over existing apps without uninstalling. Parent 2.8.1 and 2.9.0 require a one-time manual Parent APK installation to receive the automatic checker. Later versions check for updates automatically; Android may require installation confirmation.
 
 Open online USB setup in desktop Chrome or Edge on the computer connected to the phone. No local ADB folder or setup script is required. Enable USB debugging and approve access on the phone. Windows may require the manufacturer's USB driver.
 
