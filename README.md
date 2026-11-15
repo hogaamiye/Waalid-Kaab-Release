@@ -1,16 +1,14 @@
 # Waalid Kaab Android releases
 
-Latest release: [Waalid Kaab 2.12.0](https://github.com/hogaamiye/Waalid-Kaab-Release/releases/tag/v2.12.0).
+Latest release: [Waalid Kaab 2.13.0](https://github.com/hogaamiye/Waalid-Kaab-Release/releases/tag/v2.13.0).
 
-- [Parent 2.12.0 - build 51](https://github.com/hogaamiye/Waalid-Kaab-Release/releases/download/v2.12.0/waalid-kaab-parent-build-51.apk)
-- [Companion 2.12.0 - build 53](https://github.com/hogaamiye/Waalid-Kaab-Release/releases/download/v2.12.0/waalid-kaab-companion-build-53.apk)
+- [Parent 2.13.0 - build 52](https://github.com/hogaamiye/Waalid-Kaab-Release/releases/download/v2.13.0/waalid-kaab-parent-build-52.apk)
+- [Companion 2.12.0 - build 53](https://github.com/hogaamiye/Waalid-Kaab-Release/releases/download/v2.13.0/waalid-kaab-companion-build-53.apk)
 - [Online USB setup](https://hogaamiye.github.io/Waalid-Kaab-Release/)
 
-Version 2.12.0 adds guided first-child setup, a QR for downloading Companion before enrollment, and private single-use connection links. Parents can optionally preapprove a link; children must accept the visible supervision explanation before connecting. Links expire in 10 minutes. Android installation and permission approvals are still required. Standard wireless setup does not grant Device Owner status.
+Parent 2.13.0 adds Twilio Verify SMS phone sign-in, signup, linking and verified-phone checkmarks. Email is optional. Existing verified Firebase accounts retain their account and family data. Six-digit manual entry and Android SMS autofill are supported where available. Companion remains 2.12.0 (build 53), unchanged.
 
-Parent phone sign-in uses Firebase SMS OTP with automatic verification where supported and manual entry as a fallback. Email is optional. My profile supports name, email, avatar colors and a verified-phone checkmark. Existing email/password sign-in remains available. Firebase Phone Authentication, billing, SMS regions and the Android signing fingerprints must be configured for SMS delivery.
-
-Deploy the matching private backend update and public assets, including .well-known/assetlinks.json. Run php artisan migrate --force and php artisan optimize:clear. APP_URL must match the HTTPS site. Phone sign-in needs FIREBASE_PHONE_AUTH_ENABLED=true and the matching FIREBASE_PROJECT_ID. Backend source and credentials are not included here.
+Deploy the matching private backend package first. Run php artisan migrate --force and php artisan optimize:clear. Configure PHONE_AUTH_PROVIDER=twilio, TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN and TWILIO_VERIFY_SERVICE_SID privately on the server. Use a funded six-digit SMS Verify service with Somalia enabled in Verify Geo Permissions. Real SMS testing awaits credentials. Backend source and credentials are not included here.
 
 Install over existing apps without uninstalling. Parent 2.8.1 and 2.9.0 require a one-time manual Parent APK installation to receive the automatic checker. Later versions check for updates automatically; Android may require installation confirmation.
 
