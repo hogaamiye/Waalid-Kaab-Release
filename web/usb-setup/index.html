@@ -8,26 +8,55 @@
       http-equiv="Content-Security-Policy"
       content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'none'"
     />
-    <title>Waalid Kaab · Online USB setup</title>
+    <title>Waalid Kaab · Companion setup</title>
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
     <header class="top">
       <a class="brand" href="./"><span class="mark">W</span>Waalid Kaab</a
-      ><span class="online"><span></span>Online USB setup</span>
+      ><span class="online"><span></span>USB &amp; wireless setup</span>
     </header>
     <main>
       <section class="intro">
         <p class="eyebrow">COMPANION DEVICE SETUP</p>
-        <h1>One cable.<br />A connected family.</h1>
+        <h1>Choose your connection.<br />Protect their phone.</h1>
         <p class="lead">
-          Connect your child's Android phone and set up Companion here in your
-          browser.
+          Set up Companion with a USB cable in your browser, or use wireless
+          debugging from a Windows computer on the same Wi-Fi.
         </p>
         <div class="requirements">
           <span>Chrome or Edge</span><span>Android 8+</span
           ><span>USB data cable</span>
         </div>
+      </section>
+      <section class="card wireless" aria-labelledby="wireless-title">
+        <p class="eyebrow">NO CABLE · ANDROID 11+</p>
+        <h2 id="wireless-title">Wireless setup with Device Owner protection</h2>
+        <p>Pair the child phone with your Windows computer over Wi-Fi. The setup
+          downloads the latest official Companion, verifies its SHA-256, checks
+          Android eligibility, and attempts Device Owner enrollment.</p>
+        <div class="help-grid">
+          <div><h3>1 · Prepare</h3><p>Connect both devices to the same Wi-Fi. Install
+            <a href="https://developer.android.com/tools/releases/platform-tools" target="_blank" rel="noopener noreferrer">Android SDK Platform-Tools</a>.
+            On the phone, enable Developer options → Wireless debugging.</p></div>
+          <div><h3>2 · Pair and enroll</h3><p>Download and extract the setup kit.
+            In PowerShell, open its folder and run the command below. Enter the
+            connection IP:port, pairing IP:port and hidden six-digit pairing code
+            when asked. The two ports can be different.</p></div>
+          <div><h3>3 · Confirm protection</h3><p>Wait for <strong>Verified: Companion
+            is the Android Device Owner</strong>. Then open Companion, connect
+            to your family and complete parent approval and permission checks.</p></div>
+        </div>
+        <a class="kit-download" href="./waalid-kaab-wireless-setup.zip" download>Download wireless setup kit · Windows</a>
+        <pre class="command"><code>powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\setup-managed-wireless.ps1" -AdbPath "C:\platform-tools\adb.exe" -Enroll</code></pre>
+        <p class="note">Replace the ADB path with your actual adb.exe location.
+          Omit -Enroll for inspection without installing or assigning Device Owner.
+          This uses a local ADB tool; browsers cannot directly perform this Wi-Fi pairing.
+          Initial Device Owner enrollment needs an eligible phone: no existing accounts,
+          extra users, managed profiles or another device owner. Android may still
+          refuse enrollment. Nothing is reset and no accounts are removed.
+          After setup, turn Wireless debugging off and forget the computer; managed
+          protection may disable debugging automatically.</p>
       </section>
       <section class="workspace" aria-label="USB setup">
         <div class="card connection">

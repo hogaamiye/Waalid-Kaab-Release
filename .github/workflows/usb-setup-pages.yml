@@ -6,6 +6,9 @@ on:
     paths:
       - web/usb-setup/**
       - scripts/prepare-usb-web-release.py
+      - scripts/setup-managed-usb.ps1
+      - scripts/setup-managed-wireless.ps1
+      - scripts/package-wireless-setup.py
       - .github/workflows/usb-setup-pages.yml
   release:
     types: [published]

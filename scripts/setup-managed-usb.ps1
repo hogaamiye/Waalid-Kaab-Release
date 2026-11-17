@@ -1,4 +1,4 @@
-#requires -Version 5.1
+﻿#requires -Version 5.1
 [CmdletBinding()]
 param(
     [string]$Serial,
@@ -32,9 +32,9 @@ try {
         }
     })
     if ($Serial) { $devices = @($devices | Where-Object { $_.Serial -eq $Serial }) }
-    if ($devices.Count -eq 0) { throw 'No matching phone is connected. Connect a USB data cable, unlock the phone, and enable USB debugging.' }
+    if ($devices.Count -eq 0) { throw 'No matching phone is connected. Connect by USB or pair through Wireless debugging, unlock the phone, and check its debugging authorization.' }
     if ($devices.Count -ne 1) { throw 'More than one device is connected. Supply -Serial to select the child phone explicitly.' }
-    if ($devices[0].State -ne 'device') { throw 'The phone is offline or has not authorized this computer. Approve its USB debugging prompt first.' }
+    if ($devices[0].State -ne 'device') { throw 'The phone is offline or has not authorized this computer. Approve its debugging authorization first.' }
     $deviceSerial = $devices[0].Serial
 
     function Invoke-PhoneAdb {
@@ -126,7 +126,7 @@ try {
     Write-Output "Companion already owns this device: $alreadyManaged"
     Write-Output 'APK identity and preliminary checks passed. Android may still reject Device Owner assignment.'
     if (-not $Enroll) {
-        Write-Output 'Inspection only. To attempt USB enrollment, run this script again with -Enroll.'
+        Write-Output 'Inspection only. To attempt Device Owner enrollment, run this script again with -Enroll.'
         return
     }
 
@@ -137,8 +137,14 @@ try {
         $assignment = Invoke-PhoneAdb -Arguments @('shell', 'dpm', 'set-device-owner', $component)
         if ($assignment -notmatch '(?i)success') { throw 'Android did not confirm Device Owner assignment. Review the Android error; this script will not bypass eligibility checks.' }
     }
-    Write-Output 'Managed companion installed. Android confirmed Device Owner assignment (or it was already assigned).'
-    Write-Output 'Open Companion on the phone. Managed protection disables USB debugging, so ADB may disconnect automatically.'
+    $verifiedPolicy = Invoke-PhoneAdb -Arguments @('shell', 'dumpsys', 'device_policy')
+    $verifiedOwner = [regex]::Match($verifiedPolicy, '(?is)Device\s+Owner(?:\s*\([^)]*\))?:\s*(.{0,1800})')
+    $verifiedComponent = [regex]::Match($verifiedOwner.Groups[1].Value, 'ComponentInfo\{([^}]+)\}')
+    if (-not $verifiedOwner.Success -or -not $verifiedComponent.Success -or $verifiedComponent.Groups[1].Value -ne $component) {
+        throw 'Device Owner protection could not be verified. Do not assume the phone is managed. Open Companion Protection checks and review the actual Android state.'
+    }
+    Write-Output 'Managed companion installed. Verified: Companion is the Android Device Owner.'
+    Write-Output 'Open Companion on the phone. Managed protection disables debugging, so USB or wireless ADB may disconnect automatically.'
     Write-Output 'Finish pairing and parent PIN setup, then open Parent settings > Check uninstall protection and confirm the actual Android checks.'
     Write-Output 'No accounts were removed and no factory reset was requested.'
 } finally {
