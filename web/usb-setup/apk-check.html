@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="referrer" content="no-referrer" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'none'" />
+  <title>Check your Companion download · Waalid Kaab</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <header class="top"><a class="brand" href="./"><span class="mark">W</span>Waalid Kaab</a></header>
+  <main>
+    <section class="intro"><p class="eyebrow">PHONE-ONLY DOWNLOAD CHECK</p><h1>Check the file.<br />Keep your data.</h1><p class="lead">Choose the Companion APK from Downloads. This page checks its exact size and SHA-256 against the official release. The file stays on your phone and is not uploaded.</p></section>
+    <section class="card">
+      <h2>1 · Select your downloaded APK</h2>
+      <p id="release-info" role="status">Loading the official release details…</p>
+      <label for="apk-file">Companion installation file (.apk)</label>
+      <p><input id="apk-file" type="file" accept=".apk,application/vnd.android.package-archive" disabled /></p>
+      <p class="note">Use Chrome on the child phone. In the file picker, choose Downloads, then waalid-kaab-companion-build-54.apk (or the newest Companion build). No installation, USB cable or developer settings are required.</p>
+      <button id="retry-metadata" class="quiet" hidden>Reload release details</button>
+    </section>
+    <section class="card help">
+      <h2>2 · Read the result</h2>
+      <p id="check-state" role="status" aria-live="polite">Select the APK above to begin.</p>
+      <pre id="check-result" class="command" hidden></pre>
+      <p id="next-step">This checks the download. It cannot read Android’s installer logs or guarantee installation on a particular phone.</p>
+      <p class="note">Keep the existing Companion installed. A parsing error alone is not a reason to uninstall it or factory-reset the phone.</p>
+    </section>
+  </main>
+  <script type="module" src="./apk-check.js"></script>
+</body>
+</html>
