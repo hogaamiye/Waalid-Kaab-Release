@@ -1,14 +1,18 @@
 # Waalid Kaab Android releases
 
-Latest release: [Waalid Kaab 2.13.0](https://github.com/hogaamiye/Waalid-Kaab-Release/releases/tag/v2.13.0).
+Latest release: [Waalid Kaab 2.14.0](https://github.com/hogaamiye/Waalid-Kaab-Release/releases/tag/v2.14.0).
 
-- [Parent 2.13.0 - build 52](https://github.com/hogaamiye/Waalid-Kaab-Release/releases/download/v2.13.0/waalid-kaab-parent-build-52.apk)
-- [Companion 2.12.0 - build 53](https://github.com/hogaamiye/Waalid-Kaab-Release/releases/download/v2.13.0/waalid-kaab-companion-build-53.apk)
+- [Parent 2.14.0 - build 53](https://github.com/hogaamiye/Waalid-Kaab-Release/releases/download/v2.14.0/waalid-kaab-parent-build-53.apk)
+- [Companion 2.14.0 - build 54](https://github.com/hogaamiye/Waalid-Kaab-Release/releases/download/v2.14.0/waalid-kaab-companion-build-54.apk)
 - [Online USB setup](https://hogaamiye.github.io/Waalid-Kaab-Release/)
 
-Parent 2.13.0 adds Twilio Verify SMS phone sign-in, signup, linking and verified-phone checkmarks. Email is optional. Existing verified Firebase accounts retain their account and family data. Six-digit manual entry and Android SMS autofill are supported where available. Companion remains 2.12.0 (build 53), unchanged.
+Parent and Companion 2.14.0 add managed QR enrollment without a computer. In Parent, open Connect child phone -> Choose setup -> Managed setup (new or reset phone). Back up important data before a reset. On compatible new or already factory-reset Android 8+ phones, use Android's initial-setup scanner to scan the parent QR, connect to Wi-Fi and accept management setup. Android downloads the checksum-pinned APK and grants Device Owner only if provisioning succeeds. Companion carries the private, one-hour invitation into the visible consent and parent-approval flow. The app does not reset phones. Verify Device Owner active in Companion Protection checks. Full provisioning still needs physical-device validation.
 
-Deploy the matching private backend package first. Run php artisan migrate --force and php artisan optimize:clear. Configure PHONE_AUTH_PROVIDER=twilio, TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN and TWILIO_VERIFY_SERVICE_SID privately on the server. Use a funded six-digit SMS Verify service with Somalia enabled in Verify Geo Permissions. Real SMS testing awaits credentials. Backend source and credentials are not included here.
+Standard setup links combine the latest APK download and the family invitation. After installing, return to the invitation page and tap Open Companion and connect. Standard installation keeps existing data and does not grant Device Owner.
+
+The setup page also offers a Windows wireless ADB kit for eligible Android 11+ phones on the same Wi-Fi. It verifies the APK and reads back Device Owner state. Existing USB setup remains available.
+
+Deploy the matching private backend package, preserve the hosted .env, APP_KEY, database and uploads, then run php artisan migrate --force and php artisan optimize:clear. Managed QR generation needs an HTTPS APP_URL and published Companion build 54 or newer. No new environment keys are required for managed setup. Existing Twilio/Firebase configuration remains private on the backend.
 
 Install over existing apps without uninstalling. Parent 2.8.1 and 2.9.0 require a one-time manual Parent APK installation to receive the automatic checker. Later versions check for updates automatically; Android may require installation confirmation.
 
