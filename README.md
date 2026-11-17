@@ -1,18 +1,18 @@
 # Waalid Kaab Android releases
 
-Latest release: [Waalid Kaab 2.14.0](https://github.com/hogaamiye/Waalid-Kaab-Release/releases/tag/v2.14.0).
+Latest release: [Waalid Kaab 2.14.1](https://github.com/hogaamiye/Waalid-Kaab-Release/releases/tag/v2.14.1).
 
-- [Parent 2.14.0 - build 53](https://github.com/hogaamiye/Waalid-Kaab-Release/releases/download/v2.14.0/waalid-kaab-parent-build-53.apk)
-- [Companion 2.14.0 - build 54](https://github.com/hogaamiye/Waalid-Kaab-Release/releases/download/v2.14.0/waalid-kaab-companion-build-54.apk)
+- [Parent 2.14.0 - build 53](https://github.com/hogaamiye/Waalid-Kaab-Release/releases/download/v2.14.1/waalid-kaab-parent-build-53.apk)
+- [Companion 2.14.1 - build 55](https://github.com/hogaamiye/Waalid-Kaab-Release/releases/download/v2.14.1/waalid-kaab-companion-build-55.apk)
 - [Online USB setup](https://hogaamiye.github.io/Waalid-Kaab-Release/)
 
-Parent and Companion 2.14.0 add managed QR enrollment without a computer. In Parent, open Connect child phone -> Choose setup -> Managed setup (new or reset phone). Back up important data before a reset. On compatible new or already factory-reset Android 8+ phones, use Android's initial-setup scanner to scan the parent QR, connect to Wi-Fi and accept management setup. Android downloads the checksum-pinned APK and grants Device Owner only if provisioning succeeds. Companion carries the private, one-hour invitation into the visible consent and parent-approval flow. The app does not reset phones. Verify Device Owner active in Companion Protection checks. Full provisioning still needs physical-device validation.
+Companion 2.14.1 (build 55) adds first-launch invitation capture. On the updated family connection page, tap Download and connect, allow clipboard access, install and tap Open. An unpaired Companion recognizes the private, expiring invitation and opens the supervision consent screen. Child consent and parent approval remain required. If clipboard access is blocked or the invitation expires, use Open Companion and connect or ask for a fresh invitation. Parent stays at 2.14.0 (build 53), unchanged.
 
-Standard setup links combine the latest APK download and the family invitation. After installing, return to the invitation page and tap Open Companion and connect. Standard installation keeps existing data and does not grant Device Owner.
+Deploy the matching private backend update to enable the new download page. Preserve the hosted .env, APP_KEY, database and uploads, then run php artisan migrate --force and php artisan optimize:clear. No new environment keys are required. Backend files are not included here.
 
-The setup page also offers a Windows wireless ADB kit for eligible Android 11+ phones on the same Wi-Fi. It verifies the APK and reads back Device Owner state. Existing USB setup remains available.
+Managed QR enrollment, standard setup links and USB/wireless computer setup remain available. Standard APK installation alone does not grant Device Owner. Physical Samsung first-launch capture still needs validation. This release does not claim to fix the reported package-parsing error.
 
-Deploy the matching private backend package, preserve the hosted .env, APP_KEY, database and uploads, then run php artisan migrate --force and php artisan optimize:clear. Managed QR generation needs an HTTPS APP_URL and published Companion build 54 or newer. No new environment keys are required for managed setup. Existing Twilio/Firebase configuration remains private on the backend.
+Check an APK locally on your phone at https://hogaamiye.github.io/Waalid-Kaab-Release/apk-check.html; no file is uploaded.
 
 Install over existing apps without uninstalling. Parent 2.8.1 and 2.9.0 require a one-time manual Parent APK installation to receive the automatic checker. Later versions check for updates automatically; Android may require installation confirmation.
 
